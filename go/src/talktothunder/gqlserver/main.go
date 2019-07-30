@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 	"time"
 
 	"github.com/samsarahq/go/oops"
@@ -97,6 +98,11 @@ func (s *Server) registerMutationRoot(schema *schemabuilder.Schema) {
 	// The text should be provided as a GraphQL argument.
 	// hint: try pasting this into your terminal: say hello world!
 	// https://www.idownloadblog.com/2016/02/24/make-mac-talk-terminal/
+	object.FieldFunc("say", func(ctx context.Context, args struct {
+		Text string
+	}) error {
+		return exec.CommandContext(ctx, "say", args.Text).Run()
+	})
 
 	object.FieldFunc("createSnippet", func(ctx context.Context, args struct {
 		Text             string

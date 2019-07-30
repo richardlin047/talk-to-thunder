@@ -25,7 +25,16 @@ class AllSnippets extends React.Component<Props, {}> {
 
 export default connectGraphQL(AllSnippets, () => ({
   // Challenge 1: Implement a query to load all snippets.
-  query: ``,
+  query: `query {
+    allSnippets{
+      createdAt
+      deletedAt
+      generatedText
+      id
+      seedText
+      state
+    }
+  }`,
   variables: {},
   onlyValidData: true
 }));
